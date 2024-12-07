@@ -1,0 +1,21 @@
+# Lwazi Mavumbuka
+# CSC2002 Assignment 2 PCP Makefile
+
+JAVAC=javac
+.SUFFIXES: .java .class
+SRCDIR=src/clubSimulation
+BINDIR=bin
+
+$(BINDIR)/%.class:$(SRCDIR)/%.java
+	$(JAVAC) -d $(BINDIR)/ -cp $(BINDIR) $<
+	
+CLASSES= GridBlock.class PeopleLocation.class PeopleCounter.class ClubGrid.class Clubgoer.class ClubView.class CounterDisplay.class ClubSimulation.class
+CLASS_FILES=$(CLASSES:%.class=$(BINDIR)/%.class)
+
+default: $(CLASS_FILES)
+
+clean:
+	rm $(BINDIR)/*.class
+
+runClubSimulation: $(CLASS_FILES)
+	java -cp $(BINDIR) clubSimulation.ClubSimulation $(args)
